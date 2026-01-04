@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>DOM탐색기 만들기</h1>
+    <p>F12를 눌러 콘솔을 확인하세요.</p>
+    <div>
+      <button id="myBtn" onclick="search()">정보 출력 버튼</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+      const btn = document.querySelector("#myBtn");
+      const result = document.querySelector("#result");
+
+      function search() {
+        console.log(btn.tagName);
+        console.log(btn.id);
+        console.log(btn.className);
+
+        console.log(btn.parentElement.tagName);
+        console.log(btn.children.length);
+
+        result.textContent = `tagName: ${btn.tagName}, id: ${btn.id}, parent: ${btn.parentElement.tagName}`;
+      }
+    </script>
+  </body>
+</html>
