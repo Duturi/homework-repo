@@ -17,9 +17,32 @@
         },
       };
 
+      console.log("1. 학생 객체:", student);
+
       function getProperty(obj, key) {
         return obj[key];
       }
+
+      console.log("2. 동적접근:", getProperty(student, "name"));
+
+      function getAverage(obj) {
+        const math = obj.scores.math;
+        const english = obj.scores.english;
+        return (math + english) / 2;
+      }
+
+      console.log("3. 평균 점수:", getAverage(student));
+
+      consle.log("\N[복사 테스트]");
+
+      const shallowCopy = { ...student };
+
+      const deepCopy = JSON.parse(JSON.stringify(student));
+
+      deepCopy.scores.math = 100;
+
+      console.log("원본 수학 점수:", student.scores.math);
+      console.log("복사본 수학 점수:", deepCopy.scores.math);
     </script>
   </body>
 </html>
