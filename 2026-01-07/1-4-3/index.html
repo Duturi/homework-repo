@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>클로저 카운터 모듈 (콘솔 확인)</h1>
+    <p>개발자 도구(F12)의 Console 탭에서 출력 결과를 확인하세요.</p>
+
+    <script>
+      console.log("=== 클로저 카운터 모듈 실습 ===");
+
+      function createCounter() {
+        let count = 0;
+
+        return {
+          increment() {
+            count++;
+            console.log(`증가: ${count}`);
+            return count;
+          },
+
+          decrement() {
+            count--;
+            console.log(`감소: ${count}`);
+            return count;
+          },
+
+          getValue() {
+            console.log(`현재 값: ${count}`);
+            return count;
+          },
+
+          reset() {
+            count = 0;
+            console.log(`초기화: ${count}`);
+            return count;
+          },
+        };
+      }
+
+      console.log("--- Counter 1 테스트 ---");
+      const counter1 = createCounter();
+
+      counter1.increment();
+      counter1.increment();
+      counter1.decrement();
+      counter1.getValue();
+
+      console.log("직접 접근 시도:", counter1.count);
+
+      console.log("--- Counter 2 테스트 (독립성 확인) ---");
+      const counter2 = createCounter();
+
+      counter2.increment();
+      counter2.getValue();
+
+      console.log("--- Counter 1 재확인 ---");
+      counter1.getValue();
+
+      console.log("--- Reset 테스트 ---");
+      counter1.reset();
+      counter1.getValue();
+    </script>
+  </body>
+</html>
