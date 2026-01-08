@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>this 바인딩 실험 (콘솔 확인)</h1>
+
+    <script>
+      console.log("=== this 바인딩 실험 ===");
+
+      // [Starter Code]
+      const hero = {
+        name: "Batman",
+        call() {
+          console.log(this.name);
+        },
+      };
+
+      // 1. this 손실 (undefined)
+      console.log("--- 1. this 손실 확인 ---");
+      const stolenCall = hero.call;
+
+      try {
+        stolenCall();
+      } catch (e) {
+        console.log("실행 에러:", e.message);
+      }
+      console.log(
+        "(설명: stolenCall은 hero와의 연결이 끊어져 this가 전역 객체를 가리킴)"
+      );
+
+      // 2. bind로 해결하기
+      console.log("--- 2. bind로 해결 ---");
+
+      // 해결책: bind()를 사용하여 hero 객체를 this로 고정
+      const fixedCall = hero.call.bind(hero);
+      fixedCall(); // 'Batman'
+
+      // 3. setTimeout 안에서 this 잃어버리는 예제 (+ 화살표 함수로 해결)
+      console.log("--- 3. setTimeout 예제 및 해결 ---");
+
+      const timer = {
+        name: "Timer",
+        start() {
+          // (1) this 손실 (일반 함수)
+          // 1초 뒤 실행될 때는 이미메서드 실행이 끝난 후라 this를 잃어버림
+          setTimeout(function () {
+            console.log(`[실패] this.name: ${this.name} (this: ${this})`);
+          }, 500);
+
+          // (2) 해결 (화살표 함수)
+          // 화살표 함수는 상위 스코프(start 메서드의 this = timer)를 그대로 가져옴
+          setTimeout(() => {
+            console.log(`[성공] this.name: ${this.name}`);
+          }, 1000);
+        },
+      };
+
+      timer.start();
+    </script>
+  </body>
+</html>
